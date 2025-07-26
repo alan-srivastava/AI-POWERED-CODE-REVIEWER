@@ -82,8 +82,13 @@ const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash",
 //console.log(result.response.text());
 
 async function generateContent(prompt){
-  const result = await model.generateContent(prompt);
-  return result.response.text();
+  try {
+    const result = await model.generateContent(prompt);
+    return result.response.text();
+  } catch (error) {
+    console.error("Error in generateContent:", error);
+    throw new Error("Failed to generate content from AI service");
+  }
 }
 
 module.exports =  generateContent ;
